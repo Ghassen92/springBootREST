@@ -1,4 +1,4 @@
-package com.ga.security;
+package com.g.security;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ga.entities.User;
+import com.g.entities.User;
 
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 

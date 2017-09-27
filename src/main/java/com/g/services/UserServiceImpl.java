@@ -1,12 +1,12 @@
-package com.ga.services;
+package com.g.services;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ga.dao.UserRepository;
-import com.ga.entities.User;
+import com.g.dao.UserRepository;
+import com.g.entities.User;
 
 @Service
 public class UserServiceImpl implements UserService {

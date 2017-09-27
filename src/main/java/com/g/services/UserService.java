@@ -1,8 +1,8 @@
-package com.ga.services;
+package com.g.services;
 
 import java.util.List;
 
-import com.ga.entities.User;
+import com.g.entities.User;
 
 public interface UserService {
 

@@ -1,4 +1,4 @@
-package com.ga.security;
+package com.g.security;
 
 import java.io.IOException;
 

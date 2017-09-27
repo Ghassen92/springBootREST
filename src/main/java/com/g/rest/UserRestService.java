@@ -1,4 +1,4 @@
-package com.ga.rest;
+package com.g.rest;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ga.entities.User;
-import com.ga.services.UserService;
+import com.g.entities.User;
+import com.g.services.UserService;
 
 @RestController
 public class UserRestService {

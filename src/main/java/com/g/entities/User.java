@@ -1,4 +1,4 @@
-package com.ga.entities;
+package com.g.entities;
 
 import java.io.Serializable;
 

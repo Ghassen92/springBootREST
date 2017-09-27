@@ -1,4 +1,4 @@
-package com.ga.security;
+package com.g.security;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.ga.entities.User;
-import com.ga.services.UserService;
+import com.g.entities.User;
+import com.g.services.UserService;
 
 @Configuration
 @EnableWebSecurity
