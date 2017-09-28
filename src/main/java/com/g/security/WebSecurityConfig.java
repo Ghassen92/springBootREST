@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.g.entities.User;
@@ -21,11 +22,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserService userMetier;
 	
+	@Autowired
+	private AccessDeniedHandler accessDeniedHandler;
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests()
 							 .antMatchers("/").permitAll()
 							 .antMatchers(HttpMethod.POST, "/login").permitAll()
+							 .antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**").permitAll()
 							 .anyRequest().authenticated()
 							 .and()
 				// We filter the api/login requests
@@ -33,12 +38,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 						UsernamePasswordAuthenticationFilter.class)
 				// And filter other requests to check the presence of JWT in
 				// header
-				.addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+				.addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+				//.exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+;
 	}
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		// Create a default account
 		List<User> users=userMetier.getAll();
 		auth.inMemoryAuthentication().withUser("root").password("root").roles("ADMIN");
 		for(User user:users)

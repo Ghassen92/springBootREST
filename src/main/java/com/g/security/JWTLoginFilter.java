@@ -1,7 +1,6 @@
 package com.g.security;
 
 import java.io.IOException;
-import java.util.Collections;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -30,7 +29,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 			throws AuthenticationException, IOException, ServletException {
 		User creds = new ObjectMapper().readValue(req.getInputStream(), User.class);
 		return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(creds.getUsername(),
-				creds.getPassword(), Collections.emptyList()));
+				creds.getPassword()));
 	}
 
 	@Override

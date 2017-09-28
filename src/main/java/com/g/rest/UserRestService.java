@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.g.entities.User;
 import com.g.services.UserService;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+
 @RestController
 public class UserRestService {
 
@@ -34,6 +37,8 @@ public class UserRestService {
 		return userMetier.save(user);
 	}
 
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "Authorization", value = "Authorization token", required = true, dataType = "string", paramType = "header") })
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public List<User> getAll() {
 		return userMetier.getAll();
@@ -44,5 +49,4 @@ public class UserRestService {
 		return userMetier.update(user);
 	}
 
-	
 }
