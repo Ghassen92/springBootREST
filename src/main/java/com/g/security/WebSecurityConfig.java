@@ -17,17 +17,18 @@ import com.g.services.UserService;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	
+
 	@Autowired
 	private UserService userMetier;
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests()
-							 .antMatchers("/").permitAll()
-							 .antMatchers(HttpMethod.POST, "/login").permitAll()
-							 .anyRequest().authenticated()
-							 .and()
+				.antMatchers("/").permitAll()
+				.antMatchers(HttpMethod.POST, "/login").permitAll()
+				.antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**").permitAll()
+				. anyRequest().authenticated()
+				.and()
 				// We filter the api/login requests
 				.addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),
 						UsernamePasswordAuthenticationFilter.class)
@@ -39,9 +40,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		// Create a default account
-		List<User> users=userMetier.getAll();
+		List<User> users = userMetier.getAll();
 		auth.inMemoryAuthentication().withUser("root").password("root").roles("ADMIN");
-		for(User user:users)
-		auth.inMemoryAuthentication().withUser(user.getUsername()).password(user.getPassword()).roles("ADMIN");
+		for (User user : users)
+			auth.inMemoryAuthentication().withUser(user.getUsername()).password(user.getPassword()).roles("ADMIN");
 	}
+
 }
