@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 	public User update(User user) {
 		User u= userRepository.findOne(user.getId()) ;
 		if(u!=null) {
-			u.setFirstNam(user.getFirstNam());
+			u.setFirstName(user.getFirstName());
 			u.setLastName(user.getLastName());
 			u.setPassword(user.getPassword());
 			return userRepository.saveAndFlush(u);
