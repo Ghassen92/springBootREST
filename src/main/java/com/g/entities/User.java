@@ -1,43 +1,38 @@
 package com.g.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 @Entity
-@Table(name="users")
-public class User implements Serializable, UserDetails {
+@Table(name = "users")
+public class User implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	Long id;
-	String userName;
+	@Column(nullable = false, unique = true, name = "user_name")
+	String username;
 	String password;
 	String firstName;
 	String lastName;
+	@Column(nullable = true)
+	boolean authenticated = true;
 
-	
-	
 	public User() {
 	}
 
 	public User(String username, String password, String firstNam, String lastName) {
-		this.userName = username;
+		this.username = username;
 		this.password = password;
 		this.firstName = firstNam;
 		this.lastName = lastName;
@@ -51,15 +46,14 @@ public class User implements Serializable, UserDetails {
 		this.id = id;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserName(String username) {
-		this.userName = username;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	@Override
 	public String getPassword() {
 		return password;
 	}
@@ -84,40 +78,12 @@ public class User implements Serializable, UserDetails {
 		this.lastName = lastName;
 	}
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		List<GrantedAuthority> authorities = new ArrayList<>();
-		authorities.add(new SimpleGrantedAuthority("ADMIN"));
-		return authorities;
+	public boolean isAuthenticated() {
+		return authenticated;
 	}
 
-	@Override
-	public String getUsername() {
- 		return userName;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+	public void setAuthenticated(boolean authenticated) {
+		this.authenticated = authenticated;
 	}
 
 }
